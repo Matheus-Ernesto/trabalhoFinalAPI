@@ -14,9 +14,8 @@ A **AniVault API** permite cadastrar, consultar, atualizar e remover animes de u
 
 | Recurso | URL |
 |---|---|
-| Documentação (GitHub Pages) | `https://SEU_USUARIO.github.io/anivault-api` |
-| Repositório | `https://github.com/SEU_USUARIO/anivault-api` |
-| Pipeline (Actions) | `https://github.com/SEU_USUARIO/anivault-api/actions` |
+| Documentação (GitHub Pages) | `https://matheus-ernesto.github.io/trabalhoFinalAPI/` |
+| Pipeline (Actions) | `https://github.com/Matheus-Ernesto/trabalhoFinalAPI/actions/` |
 
 ---
 
@@ -61,33 +60,6 @@ push para main
 
 1. **`validar`** — instala o Spectral CLI e roda `spectral lint openapi.yaml` com o ruleset `spectral:oas`
 2. **`publicar-docs`** — só executa se o job anterior passar; gera `docs/index.html` com Redoc e faz deploy no GitHub Pages
-
----
-
-## Como configurar o repositório
-
-### 1. Criar o repositório no GitHub
-
-```bash
-git init
-git remote add origin https://github.com/SEU_USUARIO/anivault-api.git
-```
-
-### 2. Habilitar o GitHub Pages
-
-Acesse: **Settings → Pages → Source → GitHub Actions**
-
-### 3. Fazer o primeiro push
-
-```bash
-git add .
-git commit -m "feat: contrato OpenAPI e pipeline CI/CD"
-git push -u origin main
-```
-
-### 4. Verificar o pipeline
-
-Acesse a aba **Actions** do repositório e confirme que os dois jobs passaram com.
 
 ---
 
