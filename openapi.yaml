@@ -1,0 +1,368 @@
+openapi: 3.0.3
+info:
+  title: AniVault API
+  version: 1.0.0
+  description: >
+    API REST para gerenciamento de uma coleção pessoal de animes.
+    Permite cadastrar, consultar e remover títulos do seu catálogo,
+    além de registrar avaliações e filtrar por gênero ou status de exibição.
+  contact:
+    name: AniVault
+    email: contato@anivault.dev
+
+tags:
+  - name: animes
+    description: Operações sobre o catálogo de animes
+  - name: avaliacoes
+    description: Avaliações de usuários para animes
+
+paths:
+  /animes:
+    get:
+      tags: [animes]
+      summary: Listar todos os animes
+      operationId: listarAnimes
+      parameters:
+        - name: genero
+          in: query
+          description: Filtrar por gênero (ex. ação, drama, fantasia)
+          required: false
+          schema:
+            type: string
+        - name: status
+          in: query
+          description: Filtrar por status (em_exibicao, finalizado, anunciado)
+          required: false
+          schema:
+            type: string
+            enum: [em_exibicao, finalizado, anunciado]
+      responses:
+        "200":
+          description: Lista de animes retornada com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Anime"
+        "400":
+          description: Parâmetro de filtro inválido
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Erro"
+
+    post:
+      tags: [animes]
+      summary: Cadastrar um novo anime
+      operationId: criarAnime
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AnimeInput"
+      responses:
+        "201":
+          description: Anime cadastrado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Anime"
+        "400":
+          description: Dados inválidos no corpo da requisição
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Erro"
+
+  /animes/{id}:
+    get:
+      tags: [animes]
+      summary: Buscar anime por ID
+      operationId: buscarAnimePorId
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Identificador único do anime
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: Anime encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Anime"
+        "404":
+          description: Anime não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Erro"
+
+    put:
+      tags: [animes]
+      summary: Atualizar dados de um anime
+      operationId: atualizarAnime
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Identificador único do anime
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AnimeInput"
+      responses:
+        "200":
+          description: Anime atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Anime"
+        "400":
+          description: Dados inválidos no corpo da requisição
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Erro"
+        "404":
+          description: Anime não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Erro"
+
+    delete:
+      tags: [animes]
+      summary: Remover um anime do catálogo
+      operationId: deletarAnime
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Identificador único do anime
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "204":
+          description: Anime removido com sucesso
+        "404":
+          description: Anime não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Erro"
+
+  /animes/{id}/avaliacoes:
+    post:
+      tags: [avaliacoes]
+      summary: Registrar avaliação para um anime
+      operationId: criarAvaliacao
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Identificador único do anime a ser avaliado
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AvaliacaoInput"
+      responses:
+        "201":
+          description: Avaliação registrada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Avaliacao"
+        "400":
+          description: Dados inválidos (nota fora do intervalo, comentário vazio)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Erro"
+        "404":
+          description: Anime não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Erro"
+
+    get:
+      tags: [avaliacoes]
+      summary: Listar avaliações de um anime
+      operationId: listarAvaliacoes
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Identificador único do anime
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: Lista de avaliações retornada com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Avaliacao"
+        "404":
+          description: Anime não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Erro"
+
+components:
+  schemas:
+    Anime:
+      type: object
+      description: Representa um anime no catálogo
+      required: [id, titulo, estudio, episodios, status, generos]
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        titulo:
+          type: string
+          example: Fullmetal Alchemist Brotherhood
+        tituloOriginal:
+          type: string
+          example: 鋼の錬金術師 BROTHERHOOD
+        estudio:
+          type: string
+          example: Bones
+        episodios:
+          type: integer
+          example: 64
+        status:
+          type: string
+          enum: [em_exibicao, finalizado, anunciado]
+          example: finalizado
+        anoLancamento:
+          type: integer
+          example: 2009
+        sinopse:
+          type: string
+          example: Dois irmãos alquimistas buscam a Pedra Filosofal para recuperar seus corpos perdidos.
+        generos:
+          type: array
+          items:
+            type: string
+          example: [ação, aventura, fantasia]
+        notaMedia:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 10
+          example: 9.1
+
+    AnimeInput:
+      type: object
+      description: Dados para criar ou atualizar um anime
+      required: [titulo, estudio, episodios, status, generos]
+      properties:
+        titulo:
+          type: string
+          example: Attack on Titan
+        tituloOriginal:
+          type: string
+          example: 進撃の巨人
+        estudio:
+          type: string
+          example: MAPPA
+        episodios:
+          type: integer
+          minimum: 1
+          example: 87
+        status:
+          type: string
+          enum: [em_exibicao, finalizado, anunciado]
+          example: finalizado
+        anoLancamento:
+          type: integer
+          example: 2013
+        sinopse:
+          type: string
+          example: Humanidade luta pela sobrevivência contra gigantes devoradores de homens.
+        generos:
+          type: array
+          items:
+            type: string
+          example: [ação, drama, fantasia]
+
+    Avaliacao:
+      type: object
+      description: Avaliação de um usuário para um anime
+      required: [id, animeId, nota, comentario, criadoEm]
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 42
+        animeId:
+          type: integer
+          format: int64
+          example: 1
+        nota:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 10
+          example: 9.5
+        comentario:
+          type: string
+          example: Uma obra-prima absoluta. Roteiro impecável do início ao fim.
+        criadoEm:
+          type: string
+          format: date-time
+          example: "2024-03-15T14:30:00Z"
+
+    AvaliacaoInput:
+      type: object
+      description: Dados para registrar uma nova avaliação
+      required: [nota, comentario]
+      properties:
+        nota:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 10
+          example: 8.7
+        comentario:
+          type: string
+          minLength: 10
+          example: Ótima animação e trilha sonora marcante.
+
+    Erro:
+      type: object
+      description: Estrutura padrão de erro da API
+      required: [codigo, mensagem]
+      properties:
+        codigo:
+          type: integer
+          example: 404
+        mensagem:
+          type: string
+          example: Anime não encontrado
+        detalhes:
+          type: string
+          example: Nenhum anime com id=99 foi localizado no catálogo
