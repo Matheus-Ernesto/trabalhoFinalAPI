@@ -2,6 +2,13 @@
 
 > API REST para gerenciamento de uma coleção pessoal de animes, com pipeline CI/CD completo usando GitHub Actions e documentação publicada automaticamente via GitHub Pages.
 
+
+Integrantes:
+Nome dos integrantes do grupo:
+Matheus Silva Dantas - RA 59412.
+Matheus Ernesto dos Santtos - RA 43202.
+João Arnaldo Mariano de Oliveira - RA 52132.
+
 ---
 
 ## Descrição
