@@ -75,7 +75,7 @@ push para main
 ## Estrutura do projeto
 
 ```
-anivault-api/
+trabalhoFinalAPI/
 ├── openapi.yaml                  # Contrato OpenAPI 3.0.3
 ├── README.md                     # Este arquivo
 └── .github/
