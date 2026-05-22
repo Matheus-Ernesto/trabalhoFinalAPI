@@ -6,9 +6,6 @@ info:
     API REST para gerenciamento de uma coleção pessoal de animes.
     Permite cadastrar, consultar e remover títulos do seu catálogo,
     além de registrar avaliações e filtrar por gênero ou status de exibição.
-  contact:
-    name: AniVault
-    email: contato@anivault.dev
 
 tags:
   - name: animes
