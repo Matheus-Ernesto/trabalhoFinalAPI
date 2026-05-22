@@ -1,28 +1,28 @@
-# 🎌 AniVault API
+# AniVault API
 
 > API REST para gerenciamento de uma coleção pessoal de animes, com pipeline CI/CD completo usando GitHub Actions e documentação publicada automaticamente via GitHub Pages.
 
 ---
 
-## 📖 Descrição
+## Descrição
 
 A **AniVault API** permite cadastrar, consultar, atualizar e remover animes de um catálogo pessoal. Além disso, oferece um sistema de avaliações onde usuários podem registrar notas e comentários para cada título. O contrato é validado automaticamente com **Spectral** e a documentação interativa é gerada com **Redoc** a cada push na branch `main`.
 
 ---
 
-## 🔗 Links
+## Links
 
 | Recurso | URL |
 |---|---|
-| 📄 Documentação (GitHub Pages) | `https://SEU_USUARIO.github.io/anivault-api` |
-| 🐙 Repositório | `https://github.com/SEU_USUARIO/anivault-api` |
-| ⚙️ Pipeline (Actions) | `https://github.com/SEU_USUARIO/anivault-api/actions` |
+| Documentação (GitHub Pages) | `https://SEU_USUARIO.github.io/anivault-api` |
+| Repositório | `https://github.com/SEU_USUARIO/anivault-api` |
+| Pipeline (Actions) | `https://github.com/SEU_USUARIO/anivault-api/actions` |
 
 ---
 
-## 📌 Endpoints
+## Endpoints
 
-### 🗂️ Animes
+### Animes
 
 | Método | Rota | Descrição |
 |--------|------|-----------|
@@ -32,7 +32,7 @@ A **AniVault API** permite cadastrar, consultar, atualizar e remover animes de u
 | `PUT` | `/animes/{id}` | Atualiza os dados de um anime existente |
 | `DELETE` | `/animes/{id}` | Remove um anime do catálogo |
 
-### ⭐ Avaliações
+### Avaliações
 
 | Método | Rota | Descrição |
 |--------|------|-----------|
@@ -41,7 +41,7 @@ A **AniVault API** permite cadastrar, consultar, atualizar e remover animes de u
 
 ---
 
-## ⚙️ Pipeline CI/CD
+## Pipeline CI/CD
 
 O arquivo `.github/workflows/ci-cd.yml` define dois jobs em sequência:
 
@@ -64,7 +64,7 @@ push para main
 
 ---
 
-## 🚀 Como configurar o repositório
+## Como configurar o repositório
 
 ### 1. Criar o repositório no GitHub
 
@@ -87,11 +87,11 @@ git push -u origin main
 
 ### 4. Verificar o pipeline
 
-Acesse a aba **Actions** do repositório e confirme que os dois jobs passaram com ✅.
+Acesse a aba **Actions** do repositório e confirme que os dois jobs passaram com.
 
 ---
 
-## 📂 Estrutura do projeto
+## Estrutura do projeto
 
 ```
 anivault-api/
@@ -104,7 +104,7 @@ anivault-api/
 
 ---
 
-## 📋 Schemas definidos
+## Schemas definidos
 
 | Schema | Descrição |
 |--------|-----------|
