@@ -7,7 +7,7 @@ Nome dos integrantes do grupo:
 
 Matheus Silva Dantas - RA 59412.
 
-Matheus Ernesto dos Santtos - RA 43202.
+Matheus Ernesto dos Santos - RA 43202.
 
 João Arnaldo Mariano de Oliveira - RA 52132.
 
